@@ -74,14 +74,14 @@
 				$headers = "MIME-Version: 1.0\r\n"; 
 				$headers .= "From:".$from_email."\r\n"; 
 				$headers .= "Reply-To: ". $to 	."" . "\r\n";
-				$headers .= "Content-Type: multipart/mixed; boundary = $boundary\r\n\r\n"; 
+				$headers .= "Content-Type: multipart/mixed; boundary = $boundary\r\n"; 
 
 				//plain text 
 				$body = "--$boundary\r\n";
 				// Set content-type header for sending HTML email
 				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 				// $body .= "Content-Transfer-Encoding: base64\r\n\r\n"; 
-				$body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+				$body .= "Content-Transfer-Encoding: 7bit\r\n";
 				$body .= chunk_split(base64_encode($htmlContent)); 
 
 				//attachment
@@ -89,7 +89,7 @@
 				$body .="Content-Type: $file_type; name=".$file_name."\r\n";
 				$body .="Content-Disposition: attachment; filename=".$file_name."\r\n";
 				$body .="Content-Transfer-Encoding: base64\r\n";
-				$body .="X-Attachment-Id: ".rand(1000,99999)."\r\n\r\n"; 
+				$body .="X-Attachment-Id: ".rand(1000,99999)."\r\n"; 
 				$body .= $encoded_content;
 				    
 				$sentMail = mail($recipient_email, $subject, $body, $headers);
